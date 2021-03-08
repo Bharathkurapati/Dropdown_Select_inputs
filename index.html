@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+      <div class="date-picker-box">
+               <div class="start-date">
+                  <label class="control-label date-label-text">Start Date:</label>
+                  <input type="text" name="assessment_start_date" class="assessment_date_picker" id="assessment_start_date" autocomplete="off" size="16"/>
+               </div>
+              <div class="end-date">
+                  <label class="control-label date-label-text">Due Date:</label>
+                  <input type="text" name="assessment_due_date" class="assessment_date_picker" id="assessment_due_date" autocomplete="off" size="16"/>
+              </div>
+             </div>
+
+         </div>
+
+    <script type="text/javascript" src="code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://ealpha-dev.appspot.com/media/js/jquery_datepicker/datepicker-en_US.js"></script>
+
+       <script src="https://ealpha-dev.appspot.com/media/js/widgets/dateTimePickerWidget.js"></script>
+    <script src="https://ealpha-dev.appspot.com/media/js/utils/datetimeUtils.js"></script>
+    <script>
+      $(document).ready(function () {
+            $("#assessment_start_date").datepicker({
+                minDate: 0,
+                dateFormat: 'dd/mm/yy',
+                onSelect: function (date) {
+                    var assessment_due_date = $('#assessment_due_date');
+                    var startDate = $(this).datepicker('getDate');
+                    var minDate = $(this).datepicker('getDate');
+                    assessment_due_date.datepicker('setDate', minDate);
+                    startDate.setDate(startDate.getDate() + 30);
+                    //sets assessment_due_date maxDate to the last day of 30 days window
+                    assessment_due_date.datepicker('option', 'maxDate', startDate);
+                    assessment_due_date.datepicker('option', 'minDate', minDate);
+                    $(this).datepicker('option', 'minDate', minDate);
+                }
+            });
+            $('#assessment_due_date').datepicker({
+              minDate: 0,
+              dateFormat: 'dd/mm/yy'
+            });
+        });
+    </script>
+</body>
+</html>
